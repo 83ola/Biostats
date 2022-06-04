@@ -1,0 +1,38 @@
+---
+title: "class_exercise_day2"
+author: "MODUPE IBIKUNLE"
+date: '2022-06-03'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+##class exercise on reproducible data
+```{r impot data}
+penguins <- read_excel ("here"("Holt_Heat_Death.xlsx"))
+penguins
+  
+```
+```{r tidy data}
+penguins_data <- penguins |> 
+  group_by(Sex, DeadStatus) |> 
+  summarise(across(c(WeightKG, BillLength, BillDepth, Foot), .fns = list(sd = sd, mean = mean), na.rm = TRUE))
+penguins_data
+
+```
+```{r plot1}
+ggplot(data = penguins,
+       mapping = aes(x = WeightKG, y = BillLength, colour = Sex)) +
+  geom_point() +
+  labs(x = "WeightKG", y = "BillLength", colour = "Sex") +
+  theme_bw()
+```
+```{r plot 2}
+ggplot(data = penguins,
+       mapping = aes(x = WeightKG, y = BillLength, fill = Sex)) +
+  geom_boxplot() +
+  labs(x = "WeightKG", y = "BillLength", colour = "Sex") +
+  theme_bw()
+```
+
